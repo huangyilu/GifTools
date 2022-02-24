@@ -1,5 +1,5 @@
 // 录制屏幕的逻辑处理
-const EXTENSION_ID = 'ccmmbojglpomnaapkgmlhngjmjmdmoib';
+const EXTENSION_ID = 'cjhnnbgfmcbmfjhliachhlmppigepoeg';
 
 const video = document.getElementById('screen-view');
 const getScreen = document.getElementById('get-screen');
@@ -50,8 +50,8 @@ const recorder = () => {
 
 getScreen.addEventListener('click', event => {
     // 清除
-   if (video.src !== '') video.src = ''
-   if (gifView.src !== '') gifView.src = ''
+    if (video.src !== '') video.src = ''
+    if (gifView.src !== '') gifView.src = ''
     chrome.runtime.sendMessage(EXTENSION_ID, request, response => {
         if (response && response.type === 'success') {
             // 从 mediaDevices 获取到对应录屏数据
