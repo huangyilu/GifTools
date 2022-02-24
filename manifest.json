@@ -1,0 +1,16 @@
+{
+  "name": "Gif Tools",
+  "description": "一个可录制屏幕、可上传视频并转为gif的工具。（请打开选项页使用）",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "permissions": [
+    "desktopCapture"
+  ],
+  "options_page": "index.html",
+  "content_security_policy": "script-src 'self' 'unsafe-eval';script-src-elem 'self' * blob:;connect-src * blob:;object-src 'self'"
+}
