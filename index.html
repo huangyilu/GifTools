@@ -28,6 +28,19 @@
             border-bottom: 1px solid #f5f5f5;
             font-size: 14px;
         }
+        .loading {
+            text-align: center;
+            width: 100vw;
+            height: 100vh;
+            line-height: 100vh;
+            background-color: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: none;
+        }
     </style>
 </head>
 
@@ -62,6 +75,8 @@
         <div class="title">gif预览：</div>
         <img id="gif-view" src="" alt="">
     </div>
+
+    <div class="loading" id="loading">gif生成中...</div>
 
     <script src="ffmpeg/ffmpeg.min.js"></script>
     <script src="js/upload.js"></script>

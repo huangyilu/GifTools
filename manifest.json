@@ -9,6 +9,8 @@
     ]
   },
   "permissions": [
+    "tabs",
+    "contextMenus",
     "desktopCapture"
   ],
   "options_page": "index.html",

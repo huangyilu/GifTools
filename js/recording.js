@@ -1,9 +1,16 @@
 // 录制屏幕的逻辑处理
 const EXTENSION_ID = 'cjhnnbgfmcbmfjhliachhlmppigepoeg';
 
+// 找到配置页的tab
+let toolsTab = null
+chrome.tabs.query({ title: 'Gif Tools' }, tabs => {
+    toolsTab = tabs[0]
+});
+
 const video = document.getElementById('screen-view');
 const getScreen = document.getElementById('get-screen');
 const gifView = document.getElementById('gif-view');
+const loadingView = document.getElementById('loading')
 
 const request = { sources: ['window', 'screen', 'tab', 'audio'] };
 let stream;
@@ -26,6 +33,7 @@ const videoToGif = async () => {
     await ffmpeg.run('-i', name, '-r', compressionNum.value || 10, 'output.gif');
     const data = ffmpeg.FS('readFile', 'output.gif');
 
+    loadingView.style.display = 'none'
     gifView.src = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }))
 }
 
@@ -43,12 +51,18 @@ const recorder = () => {
         if (event.data.size > 0) {
             recordedBlobs.push(event.data);
             setVideo()
+            // 录制完 跳到 选项页
+            if (toolsTab) {
+                loadingView.style.display = 'block'
+                chrome.tabs.highlight({ windowId: toolsTab.windowId, tabs: toolsTab.index });
+                chrome.windows.update(toolsTab.windowId, { focused: true });
+            }
         }
     };
     mediaRecorder.start();
 }
 
-getScreen.addEventListener('click', event => {
+const StartRecording = () => {
     // 清除
     if (video.src !== '') video.src = ''
     if (gifView.src !== '') gifView.src = ''
@@ -74,4 +88,6 @@ getScreen.addEventListener('click', event => {
             console.error('Could not get stream');
         }
     });
-});
+}
+
+getScreen && getScreen.addEventListener('click', StartRecording);
